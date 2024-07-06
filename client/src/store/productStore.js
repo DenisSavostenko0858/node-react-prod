@@ -45,7 +45,12 @@ export default class ProductStore{
     setSelectBrand(brand){
         this._selectedBrand = brand;
     }
-
+    setTotalCount(count) {
+        this._totalCount = count
+    }
+    setPage(page) {
+        this._page = page
+    }
     get types(){
         return this._types;
     }
@@ -64,5 +69,14 @@ export default class ProductStore{
 
     get selectedBrand(){
         return this._selectedBrand;
+    }
+    get totalCount() {
+        return this._totalCount
+    }
+    get page() {
+        return this._page
+    }
+    get limit() {
+        return this._limit
     }
 }

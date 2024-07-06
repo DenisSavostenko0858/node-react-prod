@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import Modal from "react-bootstrap/Modal";
 import {Button, Dropdown, Form, Row, Col} from "react-bootstrap";
 import {Context} from "../../index";
-import {CreateProduct, fetchBrands, fetchProduct, fetchTypes} from "../../http/deviceAPI";
+import {createProduct, fetchBrands, fetchProduct, fetchTypes} from "../../http/productAPI";
 import {observer} from "mobx-react-lite";
 
 const CreateProduct = observer(({show, onHide}) => {
@@ -14,7 +14,7 @@ const CreateProduct = observer(({show, onHide}) => {
 
     useEffect(() => {
         fetchTypes().then(data => product.setTypes(data))
-        fetchBrands().then(data => product.setBrands(data))
+        fetchBrands().then(data => product.setBrand(data))
     }, [])
 
     const addInfo = () => {
@@ -39,7 +39,7 @@ const CreateProduct = observer(({show, onHide}) => {
         formData.append('brandId', product.selectedBrand.id)
         formData.append('typeId', product.selectedType.id)
         formData.append('info', JSON.stringify(info))
-        CreateProduct(formData).then(data => onHide())
+        createProduct(formData).then(data => onHide())
     }
 
     return (
@@ -71,7 +71,7 @@ const CreateProduct = observer(({show, onHide}) => {
                     <Dropdown className="mt-2 mb-2">
                         <Dropdown.Toggle>{product.selectedBrand.name || "Выберите тип"}</Dropdown.Toggle>
                         <Dropdown.Menu>
-                            {product.brands.map(brand =>
+                            {product.brand.map(brand =>
                                 <Dropdown.Item
                                     onClick={() => product.setSelectedBrand(brand)}
                                     key={brand.id}
@@ -142,4 +142,4 @@ const CreateProduct = observer(({show, onHide}) => {
     );
 });
 
-export default CreateDevice;
+export default CreateProduct;

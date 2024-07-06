@@ -12,6 +12,11 @@ const NavBar = observer(() => {
     const {user} = useContext(Context);
     const navigate = useNavigate();
 
+    const logOut = () => {
+        user.setUser({})
+        user.setIsAuth(false)
+    }
+
     return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container fluid>
@@ -20,8 +25,14 @@ const NavBar = observer(() => {
         <Navbar.Collapse id="navbarScroll">
             {user.isAuth ?
                 <Nav className="ml-auto" navbarScroll style={{marginLeft:"50px"}}>
-                    <Button onClick={()=> navigate(ADMIN_ROUTE)}>Управление</Button>
-                    <Button style={{marginLeft:"50px"}}>Выйти</Button>
+                    <Button onClick={()=> navigate(ADMIN_ROUTE)}>Управление (нужны права admin)</Button>
+                    <Button
+                            onClick={() => logOut()}
+                            className="ml-2"
+                            style={{marginLeft:"50px"}}
+                        >
+                            Выйти
+                        </Button>
                 </Nav>
             :
                 <Nav className="ml-auto" navbarScroll style={{marginLeft:"50px"}}>
